@@ -39,6 +39,7 @@ public class StorageService {
                             .email(EntryPoint.currentUser.getEmail())
                             .password(EntryPoint.currentUser.getPassword())
                             .resetPasswordCodeWord(EntryPoint.currentUser.getResetPasswordCodeWord())
+                            .role(EntryPoint.currentUser.getRole())
                             .build())
                     .build());
             if (imageData != null) {
@@ -58,6 +59,7 @@ public class StorageService {
                             .email(EntryPoint.currentUser.getEmail())
                             .password(EntryPoint.currentUser.getPassword())
                             .resetPasswordCodeWord(EntryPoint.currentUser.getResetPasswordCodeWord())
+                            .role(EntryPoint.currentUser.getRole())
                             .build()
             );
             return "Файл успешно обновлён : " + file.getOriginalFilename();
