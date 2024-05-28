@@ -6,10 +6,14 @@ import vibe.EZsesh.EntryPoint;
 import vibe.EZsesh.entities.AppUser;
 import vibe.EZsesh.entities.Task;
 import vibe.EZsesh.repositories.TaskRepository;
+import vibe.EZsesh.repositories.UserRepository;
+
 import java.util.List;
 
 @Service
 public class TaskService {
+    @Autowired
+    UserRepository userRepository;
     @Autowired
     TaskRepository repository;
     public Task findById(long id) {
@@ -18,14 +22,15 @@ public class TaskService {
     public List<Task> findByTopic(String topic) {
         return repository.findByTopic(topic).orElseThrow();
     }
-    public List<Task> findByCourse(String course) {
+    public List<Task> findByCourse(byte course) {
         return repository.findByCourse(course).orElseThrow();
     }
-    public List<Task> findByCourseAndSemester(String course, String semester) {
+    public List<Task> findByCourseAndSemester(byte course, byte semester) {
         return repository.findByCourseAndSemester(course, semester).orElseThrow();
     }
     public List<Task> findByAuthor(String author) {
-        return repository.findByAuthor(author).orElseThrow();
+        AppUser user = userRepository.findByUsername(author).orElseThrow();
+        return repository.findByAuthor(user).orElseThrow();
     }
     public List<Task> findAll() {
         return repository.findAll();

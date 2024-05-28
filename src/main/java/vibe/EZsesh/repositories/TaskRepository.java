@@ -13,12 +13,15 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     Optional<Task> findById(long id);
     Optional<List<Task>> findByTopic(String topic);
-    Optional<List<Task>> findByCourse(String course);
+    Optional<List<Task>> findByCourse(byte course);
     @Transactional
     @Modifying
     @Query("select t from Task t where t.course = ?1 and t.semester = ?2")
-    Optional<List<Task>> findByCourseAndSemester(String course, String semester);
-    Optional<List<Task>> findByAuthor(String author);
+    Optional<List<Task>> findByCourseAndSemester(byte course, byte semester);
+    @Transactional
+    @Modifying
+    @Query("select t from Task t where t.author = ?1")
+    Optional<List<Task>> findByAuthor(AppUser author);
     List<Task> findAll();
     @Transactional
     @Modifying
