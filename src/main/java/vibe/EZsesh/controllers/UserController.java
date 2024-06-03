@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -30,6 +31,7 @@ public class UserController {
     private StorageService storageService;
 
     @PostMapping("/register/user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> register(@RequestBody AppUser user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -41,6 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> login(@RequestBody SigninRequest signinRequest) {
 
         if (userRepository.findByUsername(signinRequest.getUserName()).isPresent()) {
@@ -58,12 +61,14 @@ public class UserController {
     }
 
     @PostMapping("/authenticated/updateProfilePhoto")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> uploadImage(@RequestParam("image")MultipartFile file) throws IOException {
         String uploadImage = storageService.uploadImage(file);
         return ResponseEntity.ok().body(uploadImage);
     }
 
     @GetMapping("/authenticated/getProfilePhoto")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> downloadImage() {
         byte[] imageData = storageService.downloadImage();
         if (imageData == null) return ResponseEntity.ok().body("У вас нет загруженных фото");
