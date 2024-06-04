@@ -1,8 +1,8 @@
 package vibe.EZsesh.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import vibe.EZsesh.EntryPoint;
 import vibe.EZsesh.entities.AppUser;
@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@Slf4j
 public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
@@ -66,6 +67,7 @@ public class TaskController {
     @PostMapping("/authenticated/updateTask/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> updateTask(@RequestBody Task task, @PathVariable("id") long id) {
+        log.info("Задача " + task.getTopic() + " была обновлена");
         taskService.updateTaskById(task, id);
         return ResponseEntity.ok().build();
     }
@@ -75,5 +77,4 @@ public class TaskController {
         taskService.deleteTaskById(id);
         return ResponseEntity.ok().build();
     }
-
 }

@@ -21,7 +21,7 @@ public class Task {
     private byte course;
     @Column(name = "semester")
     private byte semester;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "app_user_id")
     private AppUser author;
     @Column(name = "stringAnswer")
