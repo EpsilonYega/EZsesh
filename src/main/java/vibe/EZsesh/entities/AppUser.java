@@ -25,4 +25,12 @@ public class AppUser {
     private String resetPasswordCodeWord;
     @Column(name="role")
     private String role;
+
+    public AppUser(String username, String email, String password, String resetPasswordCodeWord, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.resetPasswordCodeWord = resetPasswordCodeWord;
+        this.role = role;
+    }
 }
